@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <display-name>Rest</display-name>
+
+
+    <!-- 加载spring的xml配置文件到 spring的上下文容器中 -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:application.xml</param-value>
+    </context-param>
+
+
+    <!-- This listener will load other application context file in addition
+        to rest-servlet.xml -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!-- 加载log4j配置文件 -->
+    <context-param>
+        <param-name>log4jRefreshInterval</param-name>
+        <param-value>60000</param-value>
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+    </listener>
+
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <!--  这个地方加载的是 servlet 的变量的配置文件，它们属于 controller 级别的配置
+        1.如果不配置这个 servlet-context.xml 的配置文件位置，
+        那么默认就会去/WEB-INF/servlet-context.xml 下面去寻找这个文件
+        2.如果配置了这个位置，那么它就会去制定位置加载文件
+     -->
+    <servlet>
+        <servlet-name>SpringDispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:SpringDispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SpringDispatcher</servlet-name>
+        <!-- 配置springmvc 只接受/rs/*的url对应的请求 -->
+        <url-pattern>/rs/*</url-pattern>
+    </servlet-mapping>
+
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>default.html</welcome-file>
+        <welcome-file>default.htm</welcome-file>
+        <welcome-file>default.jsp</welcome-file>
+    </welcome-file-list>
+
+</web-app>
