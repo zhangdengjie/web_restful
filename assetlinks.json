@@ -1,9 +1,0 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "com.example.zdj.myapplication",
-    "sha256_cert_fingerprints":
-    ["3E:09:69:B0:1F:B0:5E:3C:CD:D5:98:F5:79:67:37:9B:C4:C6:48:8D:19:7E:BC:5D:48:5B:73:40:DA:30:B5:DA"]
-  }
-}]
